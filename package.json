@@ -5,6 +5,7 @@
   "license": "TODO",
   "private": true,
   "dependencies": {
+    "RLE-parser": "gist:90396dbb8bd8670b4f39ca94ace48a20",
     "line-reader": "^0.4.0",
     "lodash": "^4.17.15"
   },

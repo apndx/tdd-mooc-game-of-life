@@ -1,13 +1,15 @@
-import { eachLine } from "line-reader";
 import fs from "fs";
+import RLE from "RLE-parser";
 
 export class GameOfLife {
   patternRle;
   patternFileName;
+  cells;
 
   constructor(patternFile) {
-    this.pattern = "";
+    this.patternRle = "";
     this.patternFileName = patternFile;
+    this.cells = "";
   }
 
   async initialize() {
@@ -18,14 +20,21 @@ export class GameOfLife {
     } catch (e) {
       console.log(e);
     }
-    console.log('final',patternString)
-    console.log('this', this.toString())
-    this.pattern = patternString;
+    this.patternRle = patternString;
     return patternString;
   }
 
-
-  toString() {
-    return this.pattern;
+  getRle() {
+    return this.patternRle;
   }
+
+  getCells() {
+    return this.cells;
+  }
+
+  parseRle() {
+    const rle= new RLE;
+    this.cells = rle.parse(this.patternRle);
+  }
+
 }

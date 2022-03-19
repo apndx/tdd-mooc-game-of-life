@@ -1,6 +1,8 @@
-# New JavaScript Project
+# TDD Mooc - Conway's Game of life
 
-An empty project with JavaScript testing tools preconfigured. Do whatever you like with it.
+The assignment is to write Conway's Game of Life using TDD. Write it as a command line application which takes as input a pattern file in RLE format and the number of iterations to simulate, and then outputs the resulting pattern in RLE format after the specified number of iterations.
+
+For test data, you can download RLE files from LifeWiki; see the Pattern files section in each pattern's infobox, on the right side of the page. Glider, Blinker and Block are some of the simplest patterns. Gosper glider gun is an example of an infinitely growing pattern.
 
 ## Prerequisites
 

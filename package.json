@@ -1,10 +1,11 @@
 {
-  "name": "tdd-mooc-new-js-project",
+  "name": "tdd-mooc-game-of-life",
   "version": "1.0.0-SNAPSHOT",
   "description": "TODO",
   "license": "TODO",
   "private": true,
   "dependencies": {
+    "line-reader": "^0.4.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
@@ -20,7 +21,7 @@
     "parallel": true
   },
   "scripts": {
-    "test": "mocha 'test/**/*.test.mjs'",
+    "test": "mocha --require test/testing.mjs 'test/**/*.test.mjs'",
     "autotest": "npm run test -- --watch",
     "format": "prettier --write ."
   }

@@ -16,25 +16,13 @@ describe("An RLE file", () => {
   });
 
   it("can be used to find dimensions of the game board", () => {
-    gameOfLife.extractDimensions();
     const width = gameOfLife.width;
     const height = gameOfLife.height;
     expect(width).to.equal(3);
     expect(height).to.equal(3);
   });
 
-  it("dimensions can be used to initialize empty game board", () => {
-    gameOfLife.makeBoardArray();
-    const board = gameOfLife.getBoardString();
-    expect(board).to.equalShape(
-      `...
-       ...
-       ...`
-    );
-  });
-
   it("can be used to convert a pattern to a game board array", () => {
-    gameOfLife.convertToArray();
     const cells = gameOfLife.getBoardString();
     expect(cells).to.equalShape(
       `.O.
@@ -42,5 +30,28 @@ describe("An RLE file", () => {
        OOO`
     );
   });
+});
 
+describe("When game of life is started", () => {
+  const gameOfLife = new GameOfLife("./blinker.rle");
+
+  it("in the beginning the blinker shape is as it is in the input file", () => {
+    gameOfLife.initialize();
+    const pattern = gameOfLife.getBoardString();
+    expect(pattern).to.equalShape(
+      `.O.
+       .O.
+       .O.`
+    );
+  });
+
+  it("after one iteration the blinker pattern changes according to game of life rules", () => {
+    gameOfLife.tick();
+    const pattern = gameOfLife.getBoardString();
+    expect(pattern).to.equalShape(
+      `...
+       OOO
+       ...`
+    );
+  });
 });

@@ -7,6 +7,7 @@ export class GameOfLife {
   cells;
   width;
   height;
+  board;
 
   constructor(patternFile) {
     this.patternRle = "";
@@ -28,29 +29,36 @@ export class GameOfLife {
     this.parseRle();
   }
 
-  getRle() {
-    return this.patternRle;
-  }
-
-  getCells() {
-    return this.cells;
-  }
-
-  getWidth() {
-    return this.width;
-  }
-
-  getHeight() {
-    return this.height;
-  }
-
   parseRle() {
     const rle= new RLE;
     this.cells = rle.parse(this.patternRle);
   }
 
-  convertToArray() {
+  makeBoardArray = () => {
+    var row = [];
+    var board = [];
+    for (var j = 0; j < this.height; j++) {
+      for (var i = 0; i < this.width; i++) {
+        row.push(".");
+      }
+      board[j] = row;
+      row = [];
+    }
+    this.board = board;
+  };
 
+  convertToArray() {
+    var row = [];
+    var board = [];
+    const rows = this.height();
+    const cols = this.width();
+    const cellRows = this.cells.split('\n');
+    for (var i=0; i<rows; i++) {
+      const cellRow = cellRows[i];
+      for (var j=0; j<cellRow.length; j++) {
+
+      }
+    }
   }
 
   extractDimensions() {
@@ -64,6 +72,15 @@ export class GameOfLife {
     }
     this.width = numerics[0];
     this.height = numerics[1];
+  }
+
+  getBoardString() {
+    var boardString = "";
+    for (var i = 0; i < this.height; i++) {
+      var row = this.board[i].join("");
+      boardString += row + "\n";
+    }
+    return boardString;
   }
 
 }

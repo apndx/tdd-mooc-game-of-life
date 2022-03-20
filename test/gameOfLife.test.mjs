@@ -26,7 +26,6 @@ describe("An RLE file", () => {
   it("dimensions can be used to initialize empty game board", () => {
     gameOfLife.makeBoardArray();
     const board = gameOfLife.getBoardString();
-    console.log(board)
     expect(board).to.equalShape(
       `...
        ...
@@ -34,12 +33,14 @@ describe("An RLE file", () => {
     );
   });
 
-
-
-  xit("can be used to convert a pattern to a game board array", () => {
+  it("can be used to convert a pattern to a game board array", () => {
     gameOfLife.convertToArray();
-    const cells = gameOfLife.getArray();
-    expect(cells).to.equal([['.','.','0'],['.','.','0'],['0','0','0']]);
+    const cells = gameOfLife.getBoardString();
+    expect(cells).to.equalShape(
+      `.O.
+       ..O
+       OOO`
+    );
   });
 
 });

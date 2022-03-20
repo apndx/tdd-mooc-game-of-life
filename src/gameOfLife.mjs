@@ -48,15 +48,15 @@ export class GameOfLife {
   };
 
   convertToArray() {
-    var row = [];
-    var board = [];
-    const rows = this.height();
-    const cols = this.width();
+    const rows = this.height;
     const cellRows = this.cells.split('\n');
     for (var i=0; i<rows; i++) {
       const cellRow = cellRows[i];
       for (var j=0; j<cellRow.length; j++) {
-
+        const cell = cellRow[j];
+        if (cell === '0') {
+          this.board[i][j] = 'O';
+        }
       }
     }
   }

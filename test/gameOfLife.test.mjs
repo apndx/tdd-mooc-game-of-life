@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { GameOfLife } from "../src/gameOfLife.mjs";
+import { GameOfLife, play } from "../src/gameOfLife.mjs";
 
 describe("An RLE file", () => {
   const gameOfLife = new GameOfLife("./glider.rle");
@@ -53,5 +53,13 @@ describe("When game of life is started", () => {
        OOO
        ...`
     );
+  });
+});
+
+describe("When the file and iterations amount 3 are given", () => {
+  it("the resulting pattern is given in RLE format ", () => {
+    const rle = play("./blinker.rle", 3);
+    console.log(rle);
+    expect(rle).to.equal(`#C This is a blinker.\nx = 3, y = 3\n$3o!\n`);
   });
 });

@@ -31,3 +31,13 @@ Run tests continuously
 Code reformat
 
     npm run format
+    
+## Playing the game on the command line
+
+First you need to save an rle file to the project root. There are already two test files, 'glider.rle' and 'blinker.rle'. After that you can start the simulation in the root folder:
+
+    npm run play <your rle file> <nro of iterations>
+
+For example: 
+
+    npm run play glider.rle 3

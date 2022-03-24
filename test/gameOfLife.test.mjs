@@ -56,10 +56,23 @@ describe("When game of life is started", () => {
   });
 });
 
-describe("When the file and iterations amount 3 are given", () => {
+describe("When the blinker rle file and iterations amount 3 are given", () => {
   it("the resulting pattern is given in RLE format ", () => {
     const rle = play("./blinker.rle", 3);
-    console.log(rle);
-    expect(rle).to.equal(`#C This is a blinker.\nx = 3, y = 3\n$3o!\n`);
+    expect(rle).to.equal(`#C This is a blinker.\nx = 3, y = 3\n3b$3o!\n`);
+  });
+});
+
+describe("When the glider rle file and iterations amount 1 are given", () => {
+  it("the resulting pattern is given in RLE format ", () => {
+    const rle = play("./glider.rle", 1);
+    expect(rle).to.equal(`#C This is a glider.\nx = 3, y = 3\n3b$1o1b1o$1b2o!\n`);
+  });
+});
+
+describe("When the glider rle file and iterations amount 2 are given", () => {
+  it("the resulting pattern is given in RLE format ", () => {
+    const rle = play("./glider.rle", 2);
+    expect(rle).to.equal(`#C This is a glider.\nx = 3, y = 3\n3b$2b1o$1b2o!\n`);
   });
 });

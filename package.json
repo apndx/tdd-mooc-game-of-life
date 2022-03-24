@@ -24,6 +24,7 @@
   "scripts": {
     "test": "mocha --require test/testing.mjs 'test/**/*.test.mjs'",
     "autotest": "npm run test -- --watch",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "play": "node src/gameOfLife.mjs"
   }
 }

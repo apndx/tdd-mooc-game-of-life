@@ -143,8 +143,12 @@ export class GameOfLife {
     );
   }
 
-  parseRleCell(cell) {
-    return cell === "." ? "b" : "o";
+  parseRleCell(cell, counter) {
+    if (counter === 0) {
+      return "";
+    } else {
+      return cell === "." ? "b" : "o";
+    }
   }
 
   parseOutputRle() {
@@ -153,18 +157,14 @@ export class GameOfLife {
     var outputRle = "!\n";
     var previous = "";
     var counter = 0;
-    console.log("iijii", this.height - 1, this.width - 1);
     for (var i = this.height - 1; i > -1; i--) {
       for (var j = this.width - 1; j > -1; j--) {
         const current = this.board[i][j];
-        console.log(i, j, current);
-        console.log(i, j, previous);
         if (current === "O" && previous !== ".") {
           counter += 1;
           previous = "O";
         } else if (current === "O" && previous === ".") {
           outputRle = counter + "b" + outputRle;
-          console.log("out", outputRle);
           counter = 1;
           previous = "O";
         } else if (current === "." && previous === ".") {
@@ -172,27 +172,30 @@ export class GameOfLife {
           previous = ".";
         } else if (current === "." && previous === "O") {
           outputRle = counter + "o" + outputRle;
-          console.log("out", outputRle);
           counter = 1;
           previous = ".";
+        } else if (current === "." && previous === "e") {
+          counter += 1;
+          previous = ".";
         }
-        if (j === 0 && counter !== 0) {
-          outputRle = "$" + counter + this.parseRleCell(current) + outputRle;
-          console.log("out", outputRle);
+        if (j === 0 && counter !== 0 && i > 0) {
+          outputRle = "$" + counter + this.parseRleCell(current, counter) + outputRle;
+        } else if (j === 0 && counter !== 0 && i === 0) {
+          outputRle = counter + this.parseRleCell(current, counter) + outputRle;
         }
       }
       counter = 0;
-      previous = "";
+      previous = "e";
     }
-    outputRle =
-      originalRleRows[0] + "\n" + originalRleRows[1] + "\n" + outputRle;
-    console.log("out", outputRle);
-    return outputRle;
+    if (outputRle.charAt(0) === '$') {
+      outputRle = outputRle.replace("$", "");
+    }
+      return originalRleRows[0] + "\n" + originalRleRows[1] + "\n" + outputRle;
   }
 }
 
-export function play(fileName, iterations) {
-  var gameOfLife = new GameOfLife(fileName);
+export function play(file, iterations) {
+  var gameOfLife = new GameOfLife(file);
   gameOfLife.initialize();
   var ticksLeft = iterations;
   while (ticksLeft > 0) {
@@ -205,7 +208,8 @@ export function play(fileName, iterations) {
 }
 
 if (process.argv.length > 2) {
-  const fileName = Number(process.argv[2]);
+  const fileName = process.argv[2];
   const iterations = Number(process.argv[3]);
-  console.log(play(fileName, iterations));
+  const filePath = `./${fileName}`;
+  console.log(play(filePath, iterations));
 }

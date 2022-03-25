@@ -53,9 +53,20 @@ describe("An RLE file", () => {
     expect(height).to.equal(7);
   });
 
+  it("with multiline comment can be used to convert a pattern to a game board array", () => {
+    const cells = gameOfLife.getBoardString();
+    expect(cells).to.equalShape(
+      `..OO...
+       .O.O...
+       O..O.OO
+       OO.O..O
+       .O.O...
+       .O..O..
+       ..OO...`
+    );
+  });
+
 });
-
-
 
 describe("When game of life is started", () => {
   const gameOfLife = new GameOfLife("./blinker.rle");
@@ -99,5 +110,12 @@ describe("When the glider rle file and iterations amount 2 are given", () => {
   it("the resulting pattern is given in RLE format ", () => {
     const rle = play("./glider.rle", 2);
     expect(rle).to.equal(`#C This is a glider.\nx = 3, y = 3\n3b$2b1o$1b2o!\n`);
+  });
+});
+
+describe("When the 1beacon rle file and iterations amount 3 are given", () => {
+  it("the resulting pattern is given in RLE format ", () => {
+    const rle = play("./1beacon.rle", 3);
+    expect(rle).to.equal('#N 1 beacon\r\n#C Approximately the 32nd-most common oscillator.\r\n#C www.conwaylife.com/wiki/index.php?title=1_beacon\r\nx = 7, y = 7, rule = b3/s23\r\n2b2o3b$1b1o1b1o3b$1o2b1o1b2o$2o1b1o1b2o$1b1o1b2o2b$1b1o2b1o2b$2b2o!\n');
   });
 });

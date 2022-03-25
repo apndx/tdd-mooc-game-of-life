@@ -149,7 +149,6 @@ export class GameOfLife {
 
   parseOutputRle() {
     // parse the output file starting from the bottom and end of row
-    const originalRleRows = this.patternRle.split("\n");
     var outputRle = "!\n";
     var previous = "";
     var counter = 0;
@@ -186,8 +185,23 @@ export class GameOfLife {
     if (outputRle.charAt(0) === '$') {
       outputRle = outputRle.replace("$", "");
     }
-      return originalRleRows[0] + "\n" + originalRleRows[1] + "\n" + outputRle;
+      return this.parseHeader() + outputRle;
   }
+
+  parseHeader() {
+    const originalRleRows = this.patternRle.split("\n");
+    var header = "";
+    for (var i = 0; i < originalRleRows.length; i++) {
+      const headerRow = originalRleRows[i].charAt(0).match(/#|x/);
+      if (headerRow !== null) {
+        header = header + originalRleRows[i] + "\n";
+      } else {
+        break;
+      }
+    }
+    return header;
+  }
+
 }
 
 export function play(file, iterations) {

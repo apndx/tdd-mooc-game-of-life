@@ -36,18 +36,14 @@ export class GameOfLife {
     const rle = new RLE();
     this.cells = rle.parse(this.patternRle);
   }
-
+  
   extractDimensions() {
-    const stringArray = this.patternRle.split(" ");
-    const numerics = [];
-    for (var i = 0; i < stringArray.length; i++) {
-      const numeric = stringArray[i].match(/\d+/);
-      if (numeric !== null) {
-        numerics.push(parseInt(numeric[0]));
-      }
-    }
-    this.width = numerics[0];
-    this.height = numerics[1];
+    const width = this.patternRle.match(/x\s=\s\d+/)[0];
+    const height = this.patternRle.match(/y\s=\s\d+/)[0];
+    const numWidth = width.match(/\d+/);
+    const numHeight = height.match(/\d+/);
+    this.width = parseInt(numWidth[0]);
+    this.height = parseInt(numHeight[0]);
   }
 
   makeBoardArray = () => {

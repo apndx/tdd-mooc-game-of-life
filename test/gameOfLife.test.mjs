@@ -32,6 +32,31 @@ describe("An RLE file", () => {
   });
 });
 
+describe("An RLE file", () => {
+  const gameOfLife = new GameOfLife("./1beacon.rle");
+
+  it("can have variable length header", () => {
+    gameOfLife.initialize();
+    const rle = gameOfLife.patternRle;
+    expect(rle).to.equal(`#N 1 beacon\r\n#C Approximately the 32nd-most common oscillator.\r\n#C www.conwaylife.com/wiki/index.php?title=1_beacon\r\nx = 7, y = 7, rule = b3/s23\r\n2b2o3b$bobo3b$o2bob2o$2obo2bo$bobo3b$bo2bo2b$2b2o!`);
+  });
+
+  it("with multiline comment can be used to convert a pattern to a cell presentation", () => {
+    const cells = gameOfLife.cells;
+    expect(cells).to.equal(`  00   \n 0 0   \n0  0 00\n00 0  0\n 0 0   \n 0  0  \n  00\n`);
+  });
+
+  it("with multiline comment can be used to find dimensions of the game board", () => {
+    const width = gameOfLife.width;
+    const height = gameOfLife.height;
+    expect(width).to.equal(7);
+    expect(height).to.equal(7);
+  });
+
+});
+
+
+
 describe("When game of life is started", () => {
   const gameOfLife = new GameOfLife("./blinker.rle");
 
